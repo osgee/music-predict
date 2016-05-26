@@ -306,8 +306,8 @@ def time_series_per_artist(i):
         # 定阶
         # pmax = int(len(D_data) / 10)  # 一般阶数不超过length/10
         # qmax = int(len(D_data) / 10)  # 一般阶数不超过length/10
-        pmax = 7
-        qmax = 7
+        pmax = 10
+        qmax = 10
         bic_matrix = []  # bic矩阵
         for p in range(pmax + 1):
             tmp = []
@@ -348,7 +348,7 @@ def time_series_per_artist(i):
 
 def write_to_file(artid, ts):
     if not os.path.exists(path):
-        os.mkdir(path)
+        os.makedirs(path)
     with open(path+'/mars_tianchi_artist_plays_predict.csv', 'a+') as file:
         for i in range(ts.count()):
             file.write(artid + ',' + str(math.ceil(ts[i])) + ',' + ts.index[i].strftime('%Y%m%d')+'\n')
