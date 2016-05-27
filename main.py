@@ -12,11 +12,11 @@ from statsmodels.tsa.arima_model import ARIMA
 import matplotlib.pyplot as plt
 from matplotlib.pylab import rcParams
 
-conn = pymysql.connect(host='localhost',port=3306,  user='user', password='password', db='music')
-cur = conn.cursor()
 path = 'commits/'+datetime.datetime.now().strftime('%Y-%m-%d-%H-%M')
 
 def show_user_actions():
+    conn = pymysql.connect(host='localhost', port=3306, user='user', password='password', db='music')
+    cur = conn.cursor()
     years = mdates.YearLocator()   # every year
     months = mdates.MonthLocator()  # every month
     yearsFmt = mdates.DateFormatter('%Y')
@@ -55,6 +55,8 @@ def show_user_actions():
 
 
 def show_user_long_tail():
+    conn = pymysql.connect(host='localhost', port=3306, user='user', password='password', db='music')
+    cur = conn.cursor()
     cur.execute('select user_id, count(*) num from user_action group by user_id order by count(*) desc;')
     size = cur.rowcount
     data = [() for i in range(size)]
@@ -72,6 +74,8 @@ def show_user_long_tail():
 
 
 def show_per_user_actions():
+    conn = pymysql.connect(host='localhost', port=3306, user='user', password='password', db='music')
+    cur = conn.cursor()
     years = mdates.YearLocator()   # every year
     months = mdates.MonthLocator()  # every month
     yearsFmt = mdates.DateFormatter('%Y')
@@ -352,7 +356,6 @@ def write_to_file(artid, ts):
     with open(path+'/mars_tianchi_artist_plays_predict.csv', 'a+') as file:
         for i in range(ts.count()):
             file.write(artid + ',' + str(math.ceil(ts[i])) + ',' + ts.index[i].strftime('%Y%m%d')+'\n')
-
 
 
 for i in range(50):
